@@ -1,1 +1,55 @@
 
+= PLAYBOOK Specification
+:doctype: book
+:toc:
+:toclevels: 3
+
+== Status of This Document
+This document is normative.
+
+== Scope
+PLAYBOOK defines executable plans derived from META transformations.
+Unless explicitly stated otherwise, PLAYBOOKs are consequences of META,
+not independent sources of authority.
+
+== Terminology
+The key words "MUST", "MUST NOT", "SHOULD", and "MAY" are to be interpreted
+as described in RFC 2119 and RFC 8174.
+
+== Role in the System
+PLAYBOOK specifies *how* an allowed action is carried out, not *whether*
+it is allowed.
+
+PLAYBOOKs:
+- MUST NOT introduce new authority
+- MUST NOT override META axioms
+- MUST operate within AGENTIC gating decisions
+- MUST produce actions compatible with NEUROSYM semantics
+
+== Derivation Rules
+By default, a PLAYBOOK MUST be deterministically derivable from:
+- META rules
+- validated user intent
+- current STATE context
+
+A PLAYBOOK MAY declare itself non-derived only if:
+- META explicitly permits this class, and
+- the PLAYBOOK declares its authority source.
+
+== Execution Constraints
+PLAYBOOK execution:
+- MUST occur after META validation and AGENTIC gating
+- MUST occur before ECOSYSTEM integrity checks
+- MUST NOT directly update STATE
+
+== Failure Modes
+If PLAYBOOK execution fails:
+- The system MUST rollback or branch
+- STATE MUST NOT be committed
+- The failure MUST be recorded in the journal
+
+== Conformance
+An implementation is PLAYBOOK-conformant if:
+- All PLAYBOOKs are either derived or explicitly permitted
+- No PLAYBOOK bypasses META or AGENTIC
+- Execution ordering is preserved
